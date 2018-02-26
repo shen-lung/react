@@ -5,6 +5,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import ConnectedCalculation from './containers/ConnectedCalculation';
+import CalculationWithoutRedux from './containers/CalculationWithoutRedux';
 import reducer from './reducers';
 import configureStore from './store';
 
@@ -21,16 +22,21 @@ class App extends Component {
 
   render() {
     return (
-      <Provider store={this._store}>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-          </header>
-          <div className="App-intro">
-            <ConnectedCalculation />
-          </div>
-        </div>
-      </Provider>
+        <Provider store={this._store}>
+            <div className="App">
+                <header className="App-header">
+                    <img src={logo} className="App-logo" alt="logo" />
+                </header>
+                <div className="App-intro">
+                    Calculation using redux
+                    <ConnectedCalculation />
+                </div>
+                <div className="App-intro">
+                    Calculation using react
+                    <CalculationWithoutRedux />
+                </div>
+            </div>
+        </Provider>
     );
   }
 }
