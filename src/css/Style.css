@@ -1,0 +1,22 @@
+.Content {
+    margin-top: 10px;
+}
+.Content button{
+    width: 80px;
+    height: 40px;
+    margin-right: 5px;
+    border-radius: 30px;
+}
+.Content button:hover{
+    width: 80px;
+    height: 40px;
+    margin-right: 5px;
+    border-radius: 30px;
+    background-color: #F2F2F2FF;
+}
+.Content button:focus {
+    outline: none;
+}
+.Content p {
+    font-size: 30px;
+}
