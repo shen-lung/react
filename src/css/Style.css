@@ -20,3 +20,25 @@
 .Content p {
     font-size: 30px;
 }
+.task_list_content {
+    margin-top: 10px;
+}
+.task_list_content input {
+    height: 30px;
+    border-radius: 30px;
+    padding-left: 10px;
+}
+.task_list_content input:focus {
+    outline: none;
+}
+
+.task_list_content button:focus {
+    outline: none;
+}
+
+.task_list_content button {
+    width: 80px;
+    height: 40px;
+    margin-left: 5px;
+    border-radius: 30px;
+}

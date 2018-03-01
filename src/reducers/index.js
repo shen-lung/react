@@ -1,5 +1,8 @@
 import {combineReducers} from 'redux';
+
 import {ADD_NUMBER, SUBTRACT_NUMBER, RESET_NUMBER} from '../actions';
+import taskList from './task_list'
+
 
 const calculation = (state = 0, {type}) => {
     let newState = state;
@@ -21,4 +24,5 @@ const calculation = (state = 0, {type}) => {
 
 export default combineReducers({
     calculation,
+    taskList,
 });

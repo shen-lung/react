@@ -6,8 +6,11 @@ import './App.css';
 
 import ConnectedCalculation from './containers/ConnectedCalculation';
 import CalculationWithoutRedux from './containers/CalculationWithoutRedux';
+import ConnectedTaskList from './containers/ConnectedTaskList';
 import reducer from './reducers';
 import configureStore from './store';
+
+import TaskList from './components/TaskList'
 
 
 class App extends Component {
@@ -27,14 +30,22 @@ class App extends Component {
                 <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
                 </header>
+                <h2>Calculation</h2>
                 <div className="App-intro">
-                    Calculation using redux
+                    Redux
                     <ConnectedCalculation />
                 </div>
                 <div className="App-intro">
-                    Calculation using react
+                    React
                     <CalculationWithoutRedux />
                 </div>
+                <hr/>
+                <h2>Task list</h2>
+                <div className="App-intro">
+                    Redux
+                    <ConnectedTaskList />
+                </div>
+                <hr/>
             </div>
         </Provider>
     );
