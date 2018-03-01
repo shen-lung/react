@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 
 import {ADD_NUMBER, SUBTRACT_NUMBER, RESET_NUMBER} from '../actions';
-import taskList from './task_list'
+import taskList from './taskList'
 
 
 const calculation = (state = 0, {type}) => {
