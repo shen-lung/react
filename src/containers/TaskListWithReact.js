@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import TaskList from '../components/TaskList';
 
-export default class TaskListWithoutRedux extends PureComponent {
+export default class TaskListWithReact extends PureComponent {
     constructor(props) {
         super(props);
 

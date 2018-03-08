@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 
 import Calculation from '../components/Calculation';
 
-export default class CalculationWithoutRedux extends PureComponent {
+export default class CalculationWithReact extends PureComponent {
     constructor(props) {
         super(props);
 

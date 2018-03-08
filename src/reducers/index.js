@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import {routerReducer} from 'react-router-redux';
 
 import {ADD_NUMBER, SUBTRACT_NUMBER, RESET_NUMBER} from '../actions';
 import taskList from './taskList'
@@ -23,6 +24,7 @@ const calculation = (state = 0, {type}) => {
 };
 
 export default combineReducers({
+    routing: routerReducer,
     calculation,
     taskList,
 });

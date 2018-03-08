@@ -2,9 +2,9 @@ import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 
 import ConnectedCalculation from './containers/ConnectedCalculation';
-import CalculationWithoutRedux from './containers/CalculationWithoutRedux';
+import CalculationWithReact from './containers/CalculationWithReact';
 import ConnectedTaskList from './containers/ConnectedTaskList';
-import TaskListWithoutRedux from './containers/TaskListWithoutRedux';
+import TaskListWithReact from './containers/TaskListWithReact';
 
 import Page from './components/Page';
 import IndexScreen from './components/IndexScreen';
@@ -16,9 +16,9 @@ const getRoutes = () => {
         <Route path={BASE_URL} component={Page}>
             <IndexRoute component={IndexScreen} />
             <Route path="calculation-redux" component={ConnectedCalculation} />
-            <Route path="calculation-react" component={CalculationWithoutRedux} />
+            <Route path="calculation-react" component={CalculationWithReact} />
             <Route path="tasklist-redux" component={ConnectedTaskList} />
-            <Route path="tasklist-react" component={TaskListWithoutRedux} />
+            <Route path="tasklist-react" component={TaskListWithReact} />
         </Route>
     );
 };
