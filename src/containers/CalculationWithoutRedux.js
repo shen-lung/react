@@ -12,19 +12,15 @@ export default class CalculationWithoutRedux extends PureComponent {
     }
 
     _addNumber = () => {
-        this.setState(({calulationValue: oldCalulationValue}) => {
-            return {
-                calulationValue: oldCalulationValue + 1
-            };
-        });
+        this.setState(({calulationValue: oldCalulationValue}) => ({
+            calulationValue: oldCalulationValue + 1
+        }));
     }
 
     _subtractNumber = () => {
-        this.setState(({calulationValue: oldCalulationValue}) => {
-            return {
-                calulationValue: oldCalulationValue - 1
-            };
-        });
+        this.setState(({calulationValue: oldCalulationValue}) => ({
+            calulationValue: oldCalulationValue - 1
+        }));
     }
 
     _resetNumber = () => {
