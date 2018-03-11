@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import {ADD_TASK, COMPLITE_TASK} from '../actions/taskList'
+import {ADD_TASK, COMPLETE_TASK} from '../actions/taskList'
 
 
 const taskList = (state = {}, {type, payload}) => {
@@ -18,7 +18,7 @@ const taskList = (state = {}, {type, payload}) => {
         };
     }
 
-    if (type === COMPLITE_TASK) {
+    if (type === COMPLETE_TASK) {
 		let key = payload;
 
         newState = {

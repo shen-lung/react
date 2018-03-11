@@ -7,10 +7,3 @@ export const addNumber = () => ({type: ADD_NUMBER});
 export const subtractNumber = () => ({type: SUBTRACT_NUMBER});
 
 export const resetNumber = () => ({type: RESET_NUMBER});
-
-// export const resetNumber = () => (
-//     (dispatch) => {
-//         dispatch(reset());
-//     }
-// );
-

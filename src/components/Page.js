@@ -4,23 +4,22 @@ import PropTypes from 'prop-types';
 import logo from '../logo.svg';
 import '../css/Style.css';
 
-
 class Page extends Component {
-	static propTypes = {
-		children: PropTypes.node
-	}
+    static propTypes = {
+        children: PropTypes.node
+    }
 
     render() {
-    	let {children} = this.props;
+        let {children} = this.props;
 
         return (
             <div className="App">
-              	<header className="App-header">
+                <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
                 </header>
                 {children}
                 <footer>
-                	footer
+                    footer
                 </footer>
             </div>
         );

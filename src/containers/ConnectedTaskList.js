@@ -8,8 +8,8 @@ const _mapStateToProps = (state) => ({
 });
 
 const _mapDispatchToProps = {
-	addTask,
-	completeTask
+    addTask,
+    completeTask
 };
 
 export default connect(

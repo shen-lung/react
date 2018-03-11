@@ -8,9 +8,9 @@ const _mapStateToProps = (state) => ({
 });
 
 const _mapDispatchToProps = {
-	addNumber,
-	subtractNumber,
-	resetNumber
+    addNumber,
+    subtractNumber,
+    resetNumber
 };
 
 export default connect(

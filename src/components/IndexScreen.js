@@ -5,7 +5,6 @@ import  {Link} from 'react-router';
 
 import '../css/Style.css';
 
-
 class Index extends Component {
 
     render() {

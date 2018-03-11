@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import '../css/Style.css';
 
-
 class Calculation extends Component {
     static propTypes = {
         number: PropTypes.number.isRequired,

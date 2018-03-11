@@ -4,7 +4,6 @@ import {Router} from 'react-router';
 import thunk from 'redux-thunk';
 import {syncHistoryWithStore, routerMiddleware} from 'react-router-redux';
 
-import logo from './logo.svg';
 import './App.css';
 
 import reducer from './reducers';
