@@ -5,16 +5,16 @@ import ConnectedCalculation from './containers/ConnectedCalculation';
 import CalculationWithReact from './containers/CalculationWithReact';
 import ConnectedTaskList from './containers/ConnectedTaskList';
 import TaskListWithReact from './containers/TaskListWithReact';
+import ConnectedIndexScreen from './containers/ConnectedIndexScreen';
 
 import Page from './components/Page';
-import IndexScreen from './components/IndexScreen';
 
 const BASE_URL = '/';
 
 const getRoutes = () => {
     return (
         <Route path={BASE_URL} component={Page}>
-            <IndexRoute component={IndexScreen} />
+            <IndexRoute component={ConnectedIndexScreen} />
             <Route path="calculation-redux" component={ConnectedCalculation} />
             <Route path="calculation-react" component={CalculationWithReact} />
             <Route path="tasklist-redux" component={ConnectedTaskList} />
