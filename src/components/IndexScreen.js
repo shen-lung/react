@@ -1,34 +1,37 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import  {Link} from 'react-router';
-
 import '../css/Style.css';
 
 class Index extends Component {
+    static propTypes = {
+        goToCalculation: PropTypes.func.isRequired,
+        goToCalculationWithReact: PropTypes.func.isRequired,
+        goToTaskList: PropTypes.func.isRequired,
+        goToTaskListWithReact: PropTypes.func.isRequired,
+    }
 
     render() {
+        let {
+            goToCalculation,
+            goToCalculationWithReact,
+            goToTaskList,
+            goToTaskListWithReact
+        } = this.props;
+
         return (
             <div>
                 <p>
-                    <button>
-                        <Link to="calculation-redux">Calculation</Link>
-                    </button>
+                    <button onClick={goToCalculation}>Calculation</button>
                 </p>
                 <p>
-                    <button>
-                        <Link to="calculation-react">Calculation with React</Link>
-                    </button>
+                    <button onClick={goToCalculationWithReact}>Calculation with React</button>
                 </p>
                 <p>
-                    <button>
-                        <Link to="tasklist-redux">Task List</Link>
-                    </button>
+                    <button onClick={goToTaskList}>Task List</button>
                 </p>
                 <p>
-                    <button>
-                        <Link to="tasklist-react">Task List with React</Link>
-                    </button>
+                    <button onClick={goToTaskListWithReact}>Task List with React</button>
                 </p>
             </div>
         );
