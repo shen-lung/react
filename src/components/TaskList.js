@@ -8,14 +8,18 @@ export default class TaskList extends Component {
     static propTypes = {
         taskList: PropTypes.object.isRequired,
         addTask: PropTypes.func.isRequired,
-        completeTask: PropTypes.func.isRequired
+        completeTask: PropTypes.func.isRequired,
+        returnToDoTask: PropTypes.func.isRequired,
+        removeTask: PropTypes.func.isRequired,
+        goToHome: PropTypes.func.isRequired
     }
 
     constructor(props) {
         super(props);
 
         this.state = {
-            textValue: ''
+            textValue: '',
+            totalTask: 0
         };
     }
 
@@ -32,9 +36,31 @@ export default class TaskList extends Component {
         addTask(textValue)
     }
 
+    _totalTask = (e) => {
+        debugger;
+        this.setState({totalTask: e.length});
+    }
+
+    // _totalToDoTask = () => {
+
+    // }
+
+    // _totalCompletedTask = () => {
+
+    // }
+
     render() {
-        let {taskList, completeTask} = this.props;
-        let {textValue} = this.state;
+        let {
+            taskList,
+            completeTask,
+            returnToDoTask,
+            removeTask,
+            goToHome,
+        } = this.props;
+        let {
+            textValue,
+            totalTask
+        } = this.state;
 
         const listItems = _.reduce(taskList,(memo, {name, status}, key) => ([
             ...memo,
@@ -42,6 +68,8 @@ export default class TaskList extends Component {
                 <li key={key}>
                     {name} - {status}
                     <button onClick={completeTask.bind(null, key)}>Complited</button>
+                    <button onClick={returnToDoTask.bind(null, key)}>ToDo</button>
+                    <button onClick={removeTask.bind(null, key)}>Remove</button>
                 </li>
             )
         ]), []);
@@ -54,6 +82,8 @@ export default class TaskList extends Component {
                     onChange={this._handleOnChange}
                 />
                 <button onClick={this._handleOnAddTask}>Add Tast</button>
+                <button onClick={goToHome}>Go Home</button>
+                <p><label htmlFor="">Total: {this._totalTask(taskList)}</label></p>
                 <ul>{listItems}</ul>
             </div>
         )
