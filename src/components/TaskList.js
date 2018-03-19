@@ -11,15 +11,15 @@ export default class TaskList extends Component {
         completeTask: PropTypes.func.isRequired,
         returnToDoTask: PropTypes.func.isRequired,
         removeTask: PropTypes.func.isRequired,
-        goToHome: PropTypes.func.isRequired
+        goToHome: PropTypes.func.isRequired,
+        isLoading: PropTypes.bool
     }
 
     constructor(props) {
         super(props);
 
         this.state = {
-            textValue: '',
-            totalTask: 0
+            textValue: ''
         };
     }
 
@@ -37,10 +37,11 @@ export default class TaskList extends Component {
     }
 
     _totalTask = (e) => {
-        this.setState({totalTask: e.length});
+        return _.size(e);
     }
 
-    // _totalToDoTask = () => {
+    // _totalToDoTask = (e) => {
+    //     let contTodo = 0
 
     // }
 
@@ -55,35 +56,44 @@ export default class TaskList extends Component {
             returnToDoTask,
             removeTask,
             goToHome,
+            isLoading,
         } = this.props;
         let {
             textValue,
-            totalTask
         } = this.state;
 
-        const listItems = _.reduce(taskList,(memo, {name, status}, key) => ([
+        let listItems = _.reduce(taskList,(memo, {name, status}, key) => ([
             ...memo,
             (
                 <li key={key}>
                     {name} - {status}
-                    <button onClick={completeTask.bind(null, key)}>Complited</button>
-                    <button onClick={returnToDoTask.bind(null, key)}>ToDo</button>
-                    <button onClick={removeTask.bind(null, key)}>Remove</button>
+                    <button disabled={isLoading} onClick={completeTask.bind(null, key)}>Complited</button>
+                    <button disabled={isLoading} onClick={returnToDoTask.bind(null, key)}>ToDo</button>
+                    <button disabled={isLoading} onClick={removeTask.bind(null, key)}>Remove</button>
                 </li>
             )
         ]), []);
 
+        let syncingComponent = null;
+
+        if (isLoading) {
+            syncingComponent = (<span>syncing...</span>);
+        }
+
         return (
             <div className="task_list_content">
-                <input
-                    type="text"
-                    value={textValue}
-                    onChange={this._handleOnChange}
-                />
-                <button onClick={this._handleOnAddTask}>Add Tast</button>
+                {syncingComponent}
+                <div>
+                    <input
+                        type="text"
+                        value={textValue}
+                        onChange={this._handleOnChange}
+                    />
+                    <button disabled={isLoading} onClick={this._handleOnAddTask}>Add Tast</button>
+                    <p><label htmlFor="">Total: {this._totalTask(taskList)}</label></p>
+                    <ul>{listItems}</ul>
+                </div>
                 <button onClick={goToHome}>Go Home</button>
-                <p><label htmlFor="">Total: {this._totalTask(taskList)}</label></p>
-                <ul>{listItems}</ul>
             </div>
         )
     }

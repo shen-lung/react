@@ -11,6 +11,7 @@ import {goToHome}  from '../actions/indexScreen';
 
 const _mapStateToProps = (state) => ({
     taskList: state.taskList,
+    isLoading: state.isLoading,
 });
 
 const _mapDispatchToProps = {
