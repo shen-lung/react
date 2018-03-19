@@ -37,7 +37,6 @@ export default class TaskList extends Component {
     }
 
     _totalTask = (e) => {
-        debugger;
         this.setState({totalTask: e.length});
     }
 
