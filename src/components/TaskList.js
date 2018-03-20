@@ -4,6 +4,12 @@ import PropTypes from 'prop-types';
 
 import '../css/Style.css';
 
+const _getTotalTask = (taskList) => _.size(taskList);
+
+const _getTotalToDoTask = (taskList) => _.chain(taskList).filter({status: 'todo'}).size().value();
+
+const _getTotalCompletedTask = (taskList) => _.chain(taskList).filter({status: 'completed'}).size().value();
+
 export default class TaskList extends Component {
     static propTypes = {
         taskList: PropTypes.object.isRequired,
@@ -34,32 +40,6 @@ export default class TaskList extends Component {
         this.setState({textValue: ''})
 
         addTask(textValue)
-    }
-
-    _totalTask = (e) => {
-        return _.size(e);
-    }
-
-    _totalToDoTask = (e) => {
-        let contTodo = 0
-        _.forIn(e, (value, key) => {
-            if(value.status === 'todo') {
-                contTodo++;
-            }
-        });
-
-        return contTodo;
-    }
-
-    _totalCompletedTask = (e) => {
-        let contComplited = 0
-        _.forIn(e, (value, key) => {
-            if(value.status === 'completed') {
-                contComplited++;
-            }
-        });
-
-        return contComplited;
     }
 
     render() {
@@ -104,9 +84,9 @@ export default class TaskList extends Component {
                     />
                     <button disabled={isLoading} onClick={this._handleOnAddTask}>Add Tast</button>
                     <p>
-                        <label htmlFor="">Total: {this._totalTask(taskList)}</label>
-                        <label htmlFor="">ToDo: {this._totalToDoTask(taskList)}</label>
-                        <label htmlFor="">Complited: {this._totalCompletedTask(taskList)}</label>
+                        <label htmlFor="">Total: {_getTotalTask(taskList)}</label>
+                        <label htmlFor="">ToDo: {_getTotalToDoTask(taskList)}</label>
+                        <label htmlFor="">Complited: {_getTotalCompletedTask(taskList)}</label>
                     </p>
                     <ul>{listItems}</ul>
                 </div>
