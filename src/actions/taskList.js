@@ -12,7 +12,7 @@ export const addTask = (taskName) => (
         setTimeout(() => {
             dispatch({type: ADD_TASK, payload: taskName});
             dispatch(setIsLoading(false));
-        }, 3000);
+        }, 1000);
     }
 );
 
@@ -22,7 +22,7 @@ export const completeTask = (key) => (
         setTimeout(() => {
             dispatch({type: COMPLETE_TASK, payload: key});
             dispatch(setIsLoading(false));
-        }, 3000);
+        }, 1000);
     }
 );
 
@@ -32,7 +32,7 @@ export const returnToDoTask = (key) => (
         setTimeout(() => {
             dispatch({type: RETURN_TO_DO_TASK, payload: key});
             dispatch(setIsLoading(false));
-        }, 3000);
+        }, 1000);
     }
 );
 
@@ -42,6 +42,6 @@ export const removeTask = (key) => (
         setTimeout(() => {
             dispatch({type: REMOVE_TASK, payload: key});
             dispatch(setIsLoading(false));
-        }, 3000);
+        }, 1000);
     }
 );

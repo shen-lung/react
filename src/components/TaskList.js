@@ -40,14 +40,27 @@ export default class TaskList extends Component {
         return _.size(e);
     }
 
-    // _totalToDoTask = (e) => {
-    //     let contTodo = 0
+    _totalToDoTask = (e) => {
+        let contTodo = 0
+        _.forIn(e, (value, key) => {
+            if(value.status === 'todo') {
+                contTodo++;
+            }
+        });
 
-    // }
+        return contTodo;
+    }
 
-    // _totalCompletedTask = () => {
+    _totalCompletedTask = (e) => {
+        let contComplited = 0
+        _.forIn(e, (value, key) => {
+            if(value.status === 'completed') {
+                contComplited++;
+            }
+        });
 
-    // }
+        return contComplited;
+    }
 
     render() {
         let {
@@ -90,7 +103,11 @@ export default class TaskList extends Component {
                         onChange={this._handleOnChange}
                     />
                     <button disabled={isLoading} onClick={this._handleOnAddTask}>Add Tast</button>
-                    <p><label htmlFor="">Total: {this._totalTask(taskList)}</label></p>
+                    <p>
+                        <label htmlFor="">Total: {this._totalTask(taskList)}</label>
+                        <label htmlFor="">ToDo: {this._totalToDoTask(taskList)}</label>
+                        <label htmlFor="">Complited: {this._totalCompletedTask(taskList)}</label>
+                    </p>
                     <ul>{listItems}</ul>
                 </div>
                 <button onClick={goToHome}>Go Home</button>
