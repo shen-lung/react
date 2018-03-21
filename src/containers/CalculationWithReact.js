@@ -2,8 +2,6 @@ import React, {PureComponent} from 'react';
 
 import Calculation from '../components/Calculation';
 
-const _goToHome = () => window.location = '/';
-
 export default class CalculationWithReact extends PureComponent {
     constructor(props) {
         super(props);
@@ -38,7 +36,6 @@ export default class CalculationWithReact extends PureComponent {
                 addNumber={this._addNumber}
                 subtractNumber={this._subtractNumber}
                 resetNumber={this._resetNumber}
-                goToHome={_goToHome}
             />
         );
     }

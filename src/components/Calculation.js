@@ -26,8 +26,8 @@ class Calculation extends Component {
                 <button onClick={addNumber}>Add</button>
                 <button onClick={subtractNumber}>Subtract</button>
                 <button onClick={resetNumber}>Reset</button>
-                <p>{number}</p>
                 <button onClick={goToHome}>Go Home</button>
+                <p>{number}</p>
             </div>
         );
     }

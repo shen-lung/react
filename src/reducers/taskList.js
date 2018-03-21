@@ -8,80 +8,53 @@ import {
 } from '../actions/taskList'
 
 
-const taskList = (state = [], {type, payload}) => {
+const taskList = (state = {}, {type, payload}) => {
     let newState = state;
 
     if (type === ADD_TASK) {
-        newState = [
+        let key = _.uniqueId('task');
+
+        newState = {
             ...newState,
-            {
-                key: _.uniqueId('task'),
+            [key]: {
                 name: payload,
                 status: 'todo',
             },
-        ];
+        };
     }
 
     if (type === COMPLETE_TASK) {
-        newState = _.reduce(newState, (memo, {key, ...task}) => {
-            if (payload === key) {
-                return [
-                    ...memo,
-                    {
-                        ...task,
-                        key: payload,
-                        status: 'completed',
-                    }
-                ];
-            }
+        let key = payload;
 
-            return [
-                ...memo,
-                {
-                    key,
-                    ...task,
-                }
-            ];
-        }, []);
+        newState = {
+            ...newState,
+            [key]: {
+                ...newState[key],
+                status: 'completed',
+            },
+        };
     }
 
     if (type === RETURN_TO_DO_TASK) {
-        newState = _.reduce(newState, (memo, {key, ...task}) => {
-            if (payload === key) {
-                return [
-                    ...memo,
-                    {
-                        ...task,
-                        key: payload,
-                        status: 'todo',
-                    }
-                ];
-            }
+        let key = payload;
 
-            return [
-                ...memo,
-                {
-                    key,
-                    ...task,
-                }
-            ];
-        }, []);
+        newState = {
+            ...newState,
+            [key]: {
+                ...newState[key],
+                status: 'todo',
+            },
+        };
     }
 
     if (type === REMOVE_TASK) {
-        newState = _.reduce(newState, (memo, {key, ...task}) => {
-            if (payload === key) {
-                return memo;
-            }
+        let key = payload;
 
-            return [
-                ...memo,
-                {
-                    key,
-                    ...task,
-                }
-            ];
-        }, []);
+        delete newState[key];
+
+        newState = {
+            ...newState,
+        };
     }
 
     return newState;

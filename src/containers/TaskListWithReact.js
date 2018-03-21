@@ -3,112 +3,41 @@ import _ from 'lodash';
 
 import TaskList from '../components/TaskList';
 
-const _goToHome = () => window.location = '/';
-
 export default class TaskListWithReact extends PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
-            taskList: []
+            taskList: {}
         };
     }
 
     _addTask = (taskName) => {
-        this.setState(({taskList}) => ({
-            taskList: [
-                ...taskList,
-                {
-                    key: _.uniqueId('task'),
-                    name: taskName,
-                    status: 'todo',
+        this.setState(({taskList}) => {
+            let key = _.uniqueId('task');
+
+            return {
+                taskList: {
+                    ...taskList,
+                    [key]: {
+                        name: taskName,
+                        status: 'todo',
+                    },
                 },
-            ],
-        }));
+            };
+        });
     }
 
     _completeTask = (taskKey) => {
         this.setState(({taskList}) => {
-            let newState = _.reduce(taskList, (memo, {key, ...task}) => {
-                if (taskKey === key) {
-                    return [
-                        ...memo,
-                        {
-                            ...task,
-                            key: taskKey,
-                            status: 'completed',
-                        }
-                    ];
-                }
-
-                return [
-                    ...memo,
-                    {
-                        key,
-                        ...task,
-                    }
-                ];
-            }, []);
-
             return {
-                taskList: [
-                    ...newState,
-                ],
-            };
-        });
-    }
-
-    _returnToDoTask = (taskKey) => {
-        this.setState(({taskList}) => {
-            let newState = _.reduce(taskList, (memo, {key, ...task}) => {
-                if (taskKey === key) {
-                    return [
-                        ...memo,
-                        {
-                            ...task,
-                            key: taskKey,
-                            status: 'todo',
-                        }
-                    ];
-                }
-
-                return [
-                    ...memo,
-                    {
-                        key,
-                        ...task,
-                    }
-                ];
-            }, []);
-
-            return {
-                taskList: [
-                    ...newState,
-                ],
-            };
-        });
-    }
-
-    _removeTask = (taskKey) => {
-        this.setState(({taskList}) => {
-            let newState = _.reduce(taskList, (memo, {key, ...task}) => {
-                if (taskKey === key) {
-                    return memo;
-                }
-
-                return [
-                    ...memo,
-                    {
-                        key,
-                        ...task,
-                    }
-                ];
-            }, []);
-
-            return {
-                taskList: [
-                    ...newState,
-                ],
+                taskList: {
+                    ...taskList,
+                    [taskKey]: {
+                    ...taskList[taskKey],
+                        status: 'completed',
+                    },
+                },
             };
         });
     }
@@ -121,9 +50,6 @@ export default class TaskListWithReact extends PureComponent {
                 taskList={taskList}
                 addTask={this._addTask}
                 completeTask={this._completeTask}
-                returnToDoTask={this._returnToDoTask}
-                removeTask={this._removeTask}
-                goToHome={_goToHome}
             />
         );
     }
