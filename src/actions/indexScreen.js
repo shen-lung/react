@@ -20,7 +20,7 @@ export const goToTaskList = () => (
 
 export const goToTaskListWithReact = () => (
     (dispatch) => {
-        dispatch(push('/tasklist-redux'))
+        dispatch(push('/tasklist-react'))
     }
 );
 

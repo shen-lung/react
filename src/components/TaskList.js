@@ -12,7 +12,7 @@ const _getTotalCompletedTask = (taskList) => _.chain(taskList).filter({status: '
 
 export default class TaskList extends Component {
     static propTypes = {
-        taskList: PropTypes.object.isRequired,
+        taskList: PropTypes.array.isRequired,
         addTask: PropTypes.func.isRequired,
         completeTask: PropTypes.func.isRequired,
         returnToDoTask: PropTypes.func.isRequired,
@@ -55,7 +55,7 @@ export default class TaskList extends Component {
             textValue,
         } = this.state;
 
-        let listItems = _.reduce(taskList,(memo, {name, status}, key) => ([
+        let listItems = _.reduce(taskList, (memo, {key, name, status}) => ([
             ...memo,
             (
                 <li key={key}>
