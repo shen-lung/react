@@ -3,6 +3,8 @@ import _ from 'lodash';
 
 import TaskList from '../components/TaskList';
 
+const _goToHome = () => window.location = '/';
+
 export default class TaskListWithReact extends PureComponent {
     constructor(props) {
         super(props);
@@ -42,6 +44,34 @@ export default class TaskListWithReact extends PureComponent {
         });
     }
 
+    _returnToDoTask = (taskKey) => {
+        this.setState(({taskList}) => {
+            return {
+                taskList: {
+                    ...taskList,
+                    [taskKey]: {
+                    ...taskList[taskKey],
+                        status: 'todo',
+                    },
+                },
+            };
+        });
+    }
+
+    _removeTask = (taskKey) => {
+        this.setState(({taskList}) => {
+            let newState = taskList;
+
+            delete newState[taskKey];
+
+            return {
+                taskList: {
+                    ...newState
+                }
+            };
+        });
+    }
+
     render() {
         let {taskList} = this.state;
 
@@ -50,6 +80,9 @@ export default class TaskListWithReact extends PureComponent {
                 taskList={taskList}
                 addTask={this._addTask}
                 completeTask={this._completeTask}
+                returnToDoTask={this._returnToDoTask}
+                removeTask={this._removeTask}
+                goToHome={_goToHome}
             />
         );
     }
