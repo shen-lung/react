@@ -17,8 +17,9 @@ export default class TaskList extends Component {
         completeTask: PropTypes.func.isRequired,
         returnToDoTask: PropTypes.func.isRequired,
         removeTask: PropTypes.func.isRequired,
+        selectTask: PropTypes.func.isRequired,
         goToHome: PropTypes.func.isRequired,
-        isLoading: PropTypes.bool
+        isLoading: PropTypes.bool,
     }
 
     constructor(props) {
@@ -39,11 +40,7 @@ export default class TaskList extends Component {
     }
 
     _handleActionButtons = (key, e) => {
-        if (e.target.checked) {
-            this.setState({disabledActionButtons: false});
-        } else {
-            this.setState({disabledActionButtons: true});
-        }
+        this.props.selectTask(key, e.target.checked);
     }
 
     _handleOnAddTask = () => {

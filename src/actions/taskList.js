@@ -4,6 +4,7 @@ export const ADD_TASK = 'ADD_TASK';
 export const COMPLETE_TASK = 'COMPLETE_TASK';
 export const RETURN_TO_DO_TASK = 'RETURN_TO_DO_TASK';
 export const REMOVE_TASK = 'REMOVE_TASK';
+export const SELECT_TASK = 'SELECT_TASK';
 
 
 export const addTask = (taskName) => (
@@ -43,5 +44,11 @@ export const removeTask = (key) => (
             dispatch({type: REMOVE_TASK, payload: key});
             dispatch(setIsLoading(false));
         }, 1000);
+    }
+);
+
+export const selectTask = (key, selected) => (
+    (dispatch) => {
+        dispatch({type: SELECT_TASK, payload: {key, selected}});
     }
 );

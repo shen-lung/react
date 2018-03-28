@@ -4,7 +4,8 @@ import {
     ADD_TASK,
     COMPLETE_TASK,
     RETURN_TO_DO_TASK,
-    REMOVE_TASK
+    REMOVE_TASK,
+    SELECT_TASK
 } from '../actions/taskList'
 
 
@@ -19,6 +20,7 @@ const taskList = (state = {}, {type, payload}) => {
             [key]: {
                 name: payload,
                 status: 'todo',
+                selected: false,
             },
         };
     }
@@ -54,6 +56,18 @@ const taskList = (state = {}, {type, payload}) => {
 
         newState = {
             ...newState,
+        };
+    }
+
+    if (type === SELECT_TASK) {
+        let {key, selected} = payload;
+
+        newState = {
+            ...newState,
+            [key]: {
+                ...newState[key],
+                selected,
+            },
         };
     }
 
