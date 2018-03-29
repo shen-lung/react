@@ -10,6 +10,10 @@ const _getTotalToDoTask = (taskList) => _.chain(taskList).filter({status: 'todo'
 
 const _getTotalCompletedTask = (taskList) => _.chain(taskList).filter({status: 'completed'}).size().value();
 
+const _getTotalSelected = (taskList) => _.chain(taskList).filter({selected: true}).size().value();
+
+const _isEmpty = (textValue) => textValue.length === 0;
+
 export default class TaskList extends Component {
     static propTypes = {
         taskList: PropTypes.object.isRequired,
@@ -27,15 +31,12 @@ export default class TaskList extends Component {
 
         this.state = {
             textValue: '',
-            disabledAddButton: true,
-            disabledActionButtons: true,
         };
     }
 
     _handleOnChange = (e) => {
         this.setState({
             textValue: e.target.value,
-            disabledAddButton: !(!!e.target.value),
         });
     }
 
@@ -49,7 +50,6 @@ export default class TaskList extends Component {
 
         this.setState({
             textValue: '',
-            disabledAddButton: true,
         });
 
         addTask(textValue)
@@ -66,8 +66,6 @@ export default class TaskList extends Component {
         } = this.props;
         let {
             textValue,
-            disabledAddButton,
-            disabledActionButtons,
         } = this.state;
 
         let listItems = _.reduce(taskList, (memo, {name, status}, key) => ([
@@ -78,6 +76,9 @@ export default class TaskList extends Component {
                 </li>
             )
         ]), []);
+
+        let disabledAddButton = isLoading || _isEmpty(textValue);
+        let disabledActionButtons = isLoading || !_getTotalSelected(taskList);
 
         let syncingComponent = null;
 
@@ -94,16 +95,16 @@ export default class TaskList extends Component {
                         value={textValue}
                         onChange={this._handleOnChange}
                     />
-                    <button disabled={isLoading || disabledAddButton} onClick={this._handleOnAddTask}>Add Tast</button>
+                    <button disabled={disabledAddButton} onClick={this._handleOnAddTask}>Add Tast</button>
                     <p>
                         <label>Total: {_getTotalTask(taskList)}</label>
                         <label>ToDo: {_getTotalToDoTask(taskList)}</label>
                         <label>Complited: {_getTotalCompletedTask(taskList)}</label>
                     </p>
                     <ul>{listItems}</ul>
-                    <button disabled={isLoading || disabledActionButtons}>Complited</button>
-                    <button disabled={isLoading || disabledActionButtons}>ToDo</button>
-                    <button disabled={isLoading || disabledActionButtons}>Remove</button>
+                    <button disabled={disabledActionButtons}>Complited</button>
+                    <button disabled={disabledActionButtons}>ToDo</button>
+                    <button disabled={disabledActionButtons}>Remove</button>
                 </div>
                 <button onClick={goToHome}>Go Home</button>
             </div>
