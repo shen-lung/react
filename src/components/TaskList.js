@@ -68,11 +68,11 @@ export default class TaskList extends Component {
             textValue,
         } = this.state;
 
-        let listItems = _.reduce(taskList, (memo, {name, status}, key) => ([
+        let listItems = _.reduce(taskList, (memo, {name, status, selected}, key) => ([
             ...memo,
             (
                 <li key={key}>
-                    {name} - {status} <input type="checkbox" onChange={this._handleActionButtons.bind(null, key)}/>
+                    {name} - {status} <input type="checkbox" checked={selected} onChange={this._handleActionButtons.bind(null, key)}/>
                 </li>
             )
         ]), []);
@@ -102,9 +102,9 @@ export default class TaskList extends Component {
                         <label>Complited: {_getTotalCompletedTask(taskList)}</label>
                     </p>
                     <ul>{listItems}</ul>
-                    <button disabled={disabledActionButtons}>Complited</button>
-                    <button disabled={disabledActionButtons}>ToDo</button>
-                    <button disabled={disabledActionButtons}>Remove</button>
+                    <button disabled={disabledActionButtons} onClick={completeTask}>Complited</button>
+                    <button disabled={disabledActionButtons} onClick={returnToDoTask}>ToDo</button>
+                    <button disabled={disabledActionButtons} onClick={removeTask}>Remove</button>
                 </div>
                 <button onClick={goToHome}>Go Home</button>
             </div>

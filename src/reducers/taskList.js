@@ -18,6 +18,7 @@ const taskList = (state = {}, {type, payload}) => {
         newState = {
             ...newState,
             [key]: {
+                id: key,
                 name: payload,
                 status: 'todo',
                 selected: false,
@@ -32,6 +33,7 @@ const taskList = (state = {}, {type, payload}) => {
             ...newState,
             [key]: {
                 ...newState[key],
+                selected: false,
                 status: 'completed',
             },
         };
@@ -44,6 +46,7 @@ const taskList = (state = {}, {type, payload}) => {
             ...newState,
             [key]: {
                 ...newState[key],
+                selected: false,
                 status: 'todo',
             },
         };

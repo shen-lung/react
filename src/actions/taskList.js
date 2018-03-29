@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import {setIsLoading} from './index';
 
 export const ADD_TASK = 'ADD_TASK';
@@ -17,38 +19,49 @@ export const addTask = (taskName) => (
     }
 );
 
-export const completeTask = (key) => (
-    (dispatch) => {
+export const completeTask = () => (
+    (dispatch, getState) => {
+        let {taskList} = getState();
+        let selectedTasks = _.chain(taskList).filter({selected: true}).map(({id}) => id).value();
+
         dispatch(setIsLoading(true));
         setTimeout(() => {
-            dispatch({type: COMPLETE_TASK, payload: key});
+            _.each(selectedTasks, (id) => {
+                dispatch({type: COMPLETE_TASK, payload: id});
+            })
             dispatch(setIsLoading(false));
         }, 1000);
     }
 );
 
 export const returnToDoTask = (key) => (
-    (dispatch) => {
+    (dispatch, getState) => {
+        let {taskList} = getState();
+        let selectedTasks = _.chain(taskList).filter({selected: true}).map(({id}) => id).value();
+
         dispatch(setIsLoading(true));
         setTimeout(() => {
-            dispatch({type: RETURN_TO_DO_TASK, payload: key});
+            _.each(selectedTasks, (id) => {
+                dispatch({type: RETURN_TO_DO_TASK, payload: id});
+            })
             dispatch(setIsLoading(false));
         }, 1000);
     }
 );
 
 export const removeTask = (key) => (
-    (dispatch) => {
+    (dispatch, getState) => {
+        let {taskList} = getState();
+        let selectedTasks = _.chain(taskList).filter({selected: true}).map(({id}) => id).value();
+
         dispatch(setIsLoading(true));
         setTimeout(() => {
-            dispatch({type: REMOVE_TASK, payload: key});
+            _.each(selectedTasks, (id) => {
+                dispatch({type: REMOVE_TASK, payload: id});
+            })
             dispatch(setIsLoading(false));
         }, 1000);
     }
 );
 
-export const selectTask = (key, selected) => (
-    (dispatch) => {
-        dispatch({type: SELECT_TASK, payload: {key, selected}});
-    }
-);
+export const selectTask = (key, selected) => ({type: SELECT_TASK, payload: {key, selected}});
