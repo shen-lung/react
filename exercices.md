@@ -16,6 +16,22 @@ Add also a label with the amount of task I have on the list and how many of them
 
 Bonus point: simulate that our backend is a server. That means that adding, marking as completed, marking as todo and removing a task need to be async. To do this every action should take 3 seconds to complete and all the buttons / input text field should be disabled so I cannot do another action at the same time. It would be really great if while buttons are disabled, a label appear with the legend "syncing" so we can know something is going on underneath the app
 
+### TODO list application v3 :white_check_mark:
+
+To the existing TODO list application add a checkbox to each row and remove the buttons on the row. Nw "Complete", "Todo" and "Remove" buttons should appear just once at the bottom of the tasks
+
+As now we have checkboxes on the row, operation with multiple values must be supported
+
+### TODO list application v4 :x:
+
+Add two buttons at the top of the TODO list named "Select All", "Deselect All"
+
+Bonus: adding a TODO task should be allowed by just hitting "enter"
+
+### TODO list application v5 :x:
+
+Use TODO api
+
 ## Go home feature :white_check_mark:
 
 In both Calculation and TaskList applications add a "home" button that will send us to `/` (you need to use `goToHome` redux action)
