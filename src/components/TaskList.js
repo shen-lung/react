@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import '../css/Style.css';
 
+
 const _getTotalTask = (taskList) => _.size(taskList);
 
 const _getTotalToDoTask = (taskList) => _.chain(taskList).filter({status: 'todo'}).size().value();
@@ -23,6 +24,7 @@ export default class TaskList extends Component {
         removeTask: PropTypes.func.isRequired,
         selectTask: PropTypes.func.isRequired,
         goToHome: PropTypes.func.isRequired,
+        getTasksFromServer: PropTypes.func.isRequired,
         isLoading: PropTypes.bool,
     }
 
@@ -109,5 +111,10 @@ export default class TaskList extends Component {
                 <button onClick={goToHome}>Go Home</button>
             </div>
         )
+    }
+
+    componentDidMount() {
+        let {getTasksFromServer} = this.props;
+        getTasksFromServer()
     }
 };

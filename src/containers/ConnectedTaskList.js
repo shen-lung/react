@@ -6,7 +6,8 @@ import {
     completeTask,
     returnToDoTask,
     removeTask,
-    selectTask
+    selectTask,
+    getTasksFromServer
 } from '../actions/taskList';
 import {goToHome}  from '../actions/indexScreen';
 
@@ -22,6 +23,7 @@ const _mapDispatchToProps = {
     removeTask,
     goToHome,
     selectTask,
+    getTasksFromServer,
 };
 
 export default connect(

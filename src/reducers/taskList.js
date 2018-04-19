@@ -5,12 +5,29 @@ import {
     COMPLETE_TASK,
     RETURN_TO_DO_TASK,
     REMOVE_TASK,
-    SELECT_TASK
+    SELECT_TASK,
+    GET_TASKS_FROM_SERVER
 } from '../actions/taskList'
 
 
 const taskList = (state = {}, {type, payload}) => {
     let newState = state;
+
+    if (type === GET_TASKS_FROM_SERVER) {
+        _.each(payload, (item) => {
+            let key = _.uniqueId('task');
+
+            newState = {
+                ...newState,
+                [key]: {
+                    id: key,
+                    name: item.name,
+                    status: item.status,
+                    selected: false,
+                },
+            };
+        })
+    }
 
     if (type === ADD_TASK) {
         let key = _.uniqueId('task');
