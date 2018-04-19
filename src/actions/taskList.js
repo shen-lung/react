@@ -1,7 +1,10 @@
 import _ from 'lodash';
 
 import {setIsLoading} from './index';
-import {getAllTodos} from '../api/taskList';
+import {
+    getAllTodos,
+    addTask as addTaskApi
+} from '../api/taskList';
 
 export const ADD_TASK = 'ADD_TASK';
 export const COMPLETE_TASK = 'COMPLETE_TASK';
@@ -24,10 +27,10 @@ export const getTasksFromServer = () => (
 export const addTask = (taskName) => (
     (dispatch) => {
         dispatch(setIsLoading(true));
-        setTimeout(() => {
-            dispatch({type: ADD_TASK, payload: taskName});
+        addTaskApi(taskName).then((data) => {
+            dispatch({type: ADD_TASK, payload: data});
             dispatch(setIsLoading(false));
-        }, 1000);
+        });
     }
 );
 

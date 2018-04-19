@@ -28,14 +28,12 @@ const taskList = (state = {}, {type, payload}) => {
     }
 
     if (type === ADD_TASK) {
-        let key = _.uniqueId('task');
-
         newState = {
             ...newState,
-            [key]: {
-                id: key,
-                name: payload,
-                status: 'todo',
+            [payload.id]: {
+                id: payload.id,
+                name: payload.name,
+                status: payload.status,
                 selected: false,
             },
         };
