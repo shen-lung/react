@@ -24,7 +24,9 @@ response:
 ```
 {
     "success": true,
-    "id": 123
+    "id": 123,
+    "name": "todo name",
+    "status": "todo"
 }
 ```
 

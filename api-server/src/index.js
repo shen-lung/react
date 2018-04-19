@@ -64,7 +64,7 @@ router.route('/todos')
             saveTodos(todos, () => {
                 res.json({
                     success: true,
-                    id: todo.id,
+                    ...todo,
                 });
             });
         });
