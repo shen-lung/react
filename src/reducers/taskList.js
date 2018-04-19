@@ -14,8 +14,9 @@ const taskList = (state = {}, {type, payload}) => {
     let newState = state;
 
     if (type === GET_TASKS_FROM_SERVER) {
+        let key = '';
         _.each(payload, (item) => {
-            let key = _.uniqueId('task');
+            key = _.uniqueId('task');
 
             newState = {
                 ...newState,
