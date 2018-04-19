@@ -36,6 +36,10 @@ export default class TaskList extends Component {
         };
     }
 
+    componentDidMount() {
+        this.props.getTasksFromServer();
+    }
+
     _handleOnChange = (e) => {
         this.setState({
             textValue: e.target.value,
@@ -111,10 +115,5 @@ export default class TaskList extends Component {
                 <button onClick={goToHome}>Go Home</button>
             </div>
         )
-    }
-
-    componentDidMount() {
-        let {getTasksFromServer} = this.props;
-        getTasksFromServer()
     }
 };

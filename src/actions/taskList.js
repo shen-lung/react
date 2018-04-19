@@ -8,20 +8,16 @@ export const COMPLETE_TASK = 'COMPLETE_TASK';
 export const RETURN_TO_DO_TASK = 'RETURN_TO_DO_TASK';
 export const REMOVE_TASK = 'REMOVE_TASK';
 export const SELECT_TASK = 'SELECT_TASK';
-export const GET_TASKS_FROM_SERVER = 'GET_TASKS_FROM_SERVER';
+export const ADD_MULTIPLE_TASKS = 'ADD_MULTIPLE_TASKS';
 
 
 export const getTasksFromServer = () => (
     (dispatch) => {
+        dispatch(setIsLoading(true));
         getAllTodos().then((data) => {
-            dispatch(fetchSuccess(data));
-        })
-    }
-);
-
-export const fetchSuccess = (data) => (
-    (dispatch) => {
-        dispatch({type: GET_TASKS_FROM_SERVER, payload: data});
+            dispatch({type: ADD_MULTIPLE_TASKS, payload: data});
+            dispatch(setIsLoading(false));
+        });
     }
 );
 

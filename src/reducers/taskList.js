@@ -6,28 +6,25 @@ import {
     RETURN_TO_DO_TASK,
     REMOVE_TASK,
     SELECT_TASK,
-    GET_TASKS_FROM_SERVER
+    ADD_MULTIPLE_TASKS
 } from '../actions/taskList'
 
 
 const taskList = (state = {}, {type, payload}) => {
     let newState = state;
 
-    if (type === GET_TASKS_FROM_SERVER) {
-        let key = '';
+    if (type === ADD_MULTIPLE_TASKS) {
         _.each(payload, (item) => {
-            key = _.uniqueId('task');
-
             newState = {
                 ...newState,
-                [key]: {
-                    id: key,
+                [item.id]: {
+                    id: item.id,
                     name: item.name,
                     status: item.status,
                     selected: false,
                 },
             };
-        })
+        });
     }
 
     if (type === ADD_TASK) {
