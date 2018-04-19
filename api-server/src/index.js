@@ -50,7 +50,7 @@ app.use((req, res, next) => {
 // routes that end in /todos
 router.route('/todos')
 
-    // create an email (accessed via POST to http://localhost:8080/todos)
+    // create an todo (accessed via POST to http://localhost:8080/todos)
     .post((req, res) => {
         getTodos((todos) => {
             let todo = {
@@ -62,7 +62,10 @@ router.route('/todos')
             todos = [...todos, todo];
             // write out file back to disk
             saveTodos(todos, () => {
-                res.json({success: true});
+                res.json({
+                    success: true,
+                    id: todo.id,
+                });
             });
         });
     })

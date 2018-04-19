@@ -20,6 +20,14 @@ by default, application will run on port `8080` if you want to change it, you ca
 }
 ```
 
+response:
+```
+{
+    "success": true,
+    "id": 123
+}
+```
+
 * get all the todo tasks (accessed via GET from http://localhost:8080/todos) (available query params: **q** _String_, **deleted** _Boolean_)
 
 * get an specific todo (accessed via GET from http://localhost:8080/todos/:todoId)
