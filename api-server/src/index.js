@@ -1,23 +1,28 @@
 const fs = require('fs');
 const path = require('path');
-
 const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
+const chalk = require('chalk');
+const morgan = require('morgan');
 
 const app = express();
 const router = express.Router();
 const port = process.env.PORT || 8080;
+const disableFailureMiddleware = process.env.NO_FAIL;
 
 // Using a JSON file as our 'database'
 const _ORIGINAL_TODOS_FILE = path.join(__dirname, '../data/todos.json');
 const TODOS_FILE = path.join(__dirname, '../data/_todos.json');
-fs.createReadStream(_ORIGINAL_TODOS_FILE).pipe(fs.createWriteStream(TODOS_FILE));
+if (!fs.existsSync(TODOS_FILE)) {
+    console.log(chalk.yellow('Generating local database'));
+    fs.createReadStream(_ORIGINAL_TODOS_FILE).pipe(fs.createWriteStream(TODOS_FILE));
+}
 
 const getTodos = (callback) => {
     fs.readFile(TODOS_FILE, (err, fileContents) => {
         if (err) {
-            console.log(err);
+            console.log(chalk.red(err));
             process.exit(1);
         }
 
@@ -28,7 +33,7 @@ const getTodos = (callback) => {
 const saveTodos = (todos, callback) => {
     fs.writeFile(TODOS_FILE, JSON.stringify(todos, null, 4), (err) => {
         if (err) {
-            console.log(err);
+            console.log(chalk.red(err));
             process.exit(1);
         }
 
@@ -36,8 +41,12 @@ const saveTodos = (todos, callback) => {
     });
 }
 
+// json body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+// requests logger
+app.use(morgan('dev'))
 
 // allow for cross-origin API requests
 app.use((req, res, next) => {
@@ -45,6 +54,16 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
     next();
+});
+
+// random failure middleware
+app.use((req, res, next) => {
+    if (!disableFailureMiddleware && (Date.now() % 2) !== 0) {
+        res.status(500);
+        res.send()
+    } else {
+        next();
+    }
 });
 
 // routes that end in /todos
@@ -62,10 +81,7 @@ router.route('/todos')
             todos = [...todos, todo];
             // write out file back to disk
             saveTodos(todos, () => {
-                res.json({
-                    success: true,
-                    ...todo,
-                });
+                res.json(todo);
             });
         });
     })
@@ -128,7 +144,9 @@ router.route('/todos/:todoId')
             });
 
             saveTodos(updatedTodos, () => {
-                res.json({success: true});
+                let todo = _.find(updatedTodos, {id: todoId})
+
+                res.json(todo);
             });
         });
     })
@@ -151,7 +169,7 @@ router.route('/todos/:todoId')
             });
 
             saveTodos(updatedEmails, () => {
-                res.json({success: true});
+                res.json({});
             });
         });
     });
@@ -160,9 +178,9 @@ router.route('/todos/:todoId')
 app.use('/', router);
 
 app.get('/ping', (req, res) => {
-    res.json({success: true});
+    res.send('PONG');
 });
 
 app.listen(port, () => {
-    console.log('Server started: http://localhost:' + port + '/');
+    console.log(chalk.blue(`Server started: http://localhost:${port}/`));
 });
