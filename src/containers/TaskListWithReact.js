@@ -36,7 +36,7 @@ export default class TaskListWithReact extends PureComponent {
                 taskList: {
                     ...taskList,
                     [taskKey]: {
-                    ...taskList[taskKey],
+                        ...taskList[taskKey],
                         status: 'completed',
                     },
                 },
@@ -50,7 +50,7 @@ export default class TaskListWithReact extends PureComponent {
                 taskList: {
                     ...taskList,
                     [taskKey]: {
-                    ...taskList[taskKey],
+                        ...taskList[taskKey],
                         status: 'todo',
                     },
                 },
@@ -72,6 +72,20 @@ export default class TaskListWithReact extends PureComponent {
         });
     }
 
+    _selectTask = (taskKey, selected) => {
+        this.setState(({taskList}) => {
+            return {
+                taskList: {
+                    ...taskList,
+                    [taskKey]: {
+                        ...taskList[taskKey],
+                        selected,
+                    },
+                },
+            };
+        });
+    }
+
     render() {
         let {taskList} = this.state;
 
@@ -82,7 +96,9 @@ export default class TaskListWithReact extends PureComponent {
                 completeTask={this._completeTask}
                 returnToDoTask={this._returnToDoTask}
                 removeTask={this._removeTask}
+                selectTask={this._selectTask}
                 goToHome={_goToHome}
+                getTasksFromServer={_.noop}
             />
         );
     }
