@@ -3,7 +3,9 @@ import _ from 'lodash';
 import {setIsLoading} from './index';
 import {
     getAllTodos,
-    addTask as addTaskApi
+    addTask as addTaskApi,
+    updateTaskStatus as updateTaskStatusApi,
+    deleteTask as deleteTaskApi
 } from '../api/taskList';
 
 export const ADD_TASK = 'ADD_TASK';
@@ -17,7 +19,8 @@ export const ADD_MULTIPLE_TASKS = 'ADD_MULTIPLE_TASKS';
 export const getTasksFromServer = () => (
     (dispatch) => {
         dispatch(setIsLoading(true));
-        getAllTodos().then((data) => {
+
+        return getAllTodos().then((data) => {
             dispatch({type: ADD_MULTIPLE_TASKS, payload: data});
             dispatch(setIsLoading(false));
         });
@@ -27,7 +30,8 @@ export const getTasksFromServer = () => (
 export const addTask = (taskName) => (
     (dispatch) => {
         dispatch(setIsLoading(true));
-        addTaskApi(taskName).then((data) => {
+
+        return addTaskApi(taskName).then((data) => {
             dispatch({type: ADD_TASK, payload: data});
             dispatch(setIsLoading(false));
         });
@@ -40,12 +44,34 @@ export const completeTask = () => (
         let selectedTasks = _.chain(taskList).filter({selected: true}).map(({id}) => id).value();
 
         dispatch(setIsLoading(true));
-        setTimeout(() => {
+
+        // parallel
+        // let promisess = _.map(selectedTasks, (id) => updateTaskStatusApi(id, 'completed'));
+        //
+        // Promise.all(promisess).then((values) => {
+        //     _.each(values, ({id}) => {
+        //         dispatch({type: COMPLETE_TASK, payload: id});
+        //     });
+        //     dispatch(setIsLoading(false));
+        // }).catch(() => {
+        //     dispatch(setIsLoading(false));
+        // });
+
+        // serie
+        let promise = Promise.resolve();
+
+        _.each(selectedTasks, (id) => {
+            promise = promise.then(() => updateTaskStatusApi(id, 'completed'));
+        });
+
+        promise.then(() => {
             _.each(selectedTasks, (id) => {
                 dispatch({type: COMPLETE_TASK, payload: id});
-            })
+            });
             dispatch(setIsLoading(false));
-        }, 1000);
+        }).catch(() => {
+            dispatch(setIsLoading(false));
+        });
     }
 );
 
@@ -55,12 +81,22 @@ export const returnToDoTask = (key) => (
         let selectedTasks = _.chain(taskList).filter({selected: true}).map(({id}) => id).value();
 
         dispatch(setIsLoading(true));
-        setTimeout(() => {
+        
+        // serie
+        let promise = Promise.resolve();
+
+        _.each(selectedTasks, (id) => {
+            promise = promise.then(() => updateTaskStatusApi(id, 'todo'));
+        });
+
+        promise.then(() => {
             _.each(selectedTasks, (id) => {
                 dispatch({type: RETURN_TO_DO_TASK, payload: id});
-            })
+            });
             dispatch(setIsLoading(false));
-        }, 1000);
+        }).catch(() => {
+            dispatch(setIsLoading(false));
+        });
     }
 );
 
@@ -70,12 +106,21 @@ export const removeTask = (key) => (
         let selectedTasks = _.chain(taskList).filter({selected: true}).map(({id}) => id).value();
 
         dispatch(setIsLoading(true));
-        setTimeout(() => {
+        // serie
+        let promise = Promise.resolve();
+
+        _.each(selectedTasks, (id) => {
+            promise = promise.then(() => deleteTaskApi(id));
+        });
+
+        promise.then(() => {
             _.each(selectedTasks, (id) => {
                 dispatch({type: REMOVE_TASK, payload: id});
-            })
+            });
             dispatch(setIsLoading(false));
-        }, 1000);
+        }).catch(() => {
+            dispatch(setIsLoading(false));
+        });
     }
 );
 
