@@ -6,7 +6,8 @@ import {
     RETURN_TO_DO_TASK,
     REMOVE_TASK,
     SELECT_TASK,
-    ADD_MULTIPLE_TASKS
+    ADD_MULTIPLE_TASKS,
+    SERVER_ERROR
 } from '../actions/taskList'
 
 

@@ -1,6 +1,9 @@
 import _ from 'lodash';
 
-import {setIsLoading} from './index';
+import {
+    setIsLoading,
+    showError
+} from './index';
 import {
     getAllTodos,
     addTask as addTaskApi,
@@ -19,9 +22,13 @@ export const ADD_MULTIPLE_TASKS = 'ADD_MULTIPLE_TASKS';
 export const getTasksFromServer = () => (
     (dispatch) => {
         dispatch(setIsLoading(true));
+        dispatch(showError(''));
 
         return getAllTodos().then((data) => {
             dispatch({type: ADD_MULTIPLE_TASKS, payload: data});
+            dispatch(setIsLoading(false));
+        }).catch(() => {
+            dispatch(showError('SERVER ERROR.'));
             dispatch(setIsLoading(false));
         });
     }
@@ -30,9 +37,13 @@ export const getTasksFromServer = () => (
 export const addTask = (taskName) => (
     (dispatch) => {
         dispatch(setIsLoading(true));
+        dispatch(showError(''));
 
         return addTaskApi(taskName).then((data) => {
             dispatch({type: ADD_TASK, payload: data});
+            dispatch(setIsLoading(false));
+        }).catch(() => {
+            dispatch(showError('SERVER ERROR.'));
             dispatch(setIsLoading(false));
         });
     }
@@ -44,6 +55,7 @@ export const completeTask = () => (
         let selectedTasks = _.chain(taskList).filter({selected: true}).map(({id}) => id).value();
 
         dispatch(setIsLoading(true));
+        dispatch(showError(''));
 
         // parallel
         // let promisess = _.map(selectedTasks, (id) => updateTaskStatusApi(id, 'completed'));
@@ -70,6 +82,7 @@ export const completeTask = () => (
             });
             dispatch(setIsLoading(false));
         }).catch(() => {
+            dispatch(showError('SERVER ERROR.'));
             dispatch(setIsLoading(false));
         });
     }
@@ -81,7 +94,8 @@ export const returnToDoTask = (key) => (
         let selectedTasks = _.chain(taskList).filter({selected: true}).map(({id}) => id).value();
 
         dispatch(setIsLoading(true));
-        
+        dispatch(showError(''));
+
         // serie
         let promise = Promise.resolve();
 
@@ -95,6 +109,7 @@ export const returnToDoTask = (key) => (
             });
             dispatch(setIsLoading(false));
         }).catch(() => {
+            dispatch(showError('SERVER ERROR.'));
             dispatch(setIsLoading(false));
         });
     }
@@ -106,6 +121,8 @@ export const removeTask = (key) => (
         let selectedTasks = _.chain(taskList).filter({selected: true}).map(({id}) => id).value();
 
         dispatch(setIsLoading(true));
+        dispatch(showError(''));
+        
         // serie
         let promise = Promise.resolve();
 
@@ -119,6 +136,7 @@ export const removeTask = (key) => (
             });
             dispatch(setIsLoading(false));
         }).catch(() => {
+            dispatch(showError('SERVER ERROR.'));
             dispatch(setIsLoading(false));
         });
     }

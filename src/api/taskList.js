@@ -1,9 +1,11 @@
+import {fetchVadim} from './base';
+
 export const getAllTodos = () => (
-    fetch('http://localhost:8080/todos').then(response => response.json())
+    fetchVadim('http://localhost:8080/todos')
 );
 
 export const addTask = (taskName) => (
-    fetch('http://localhost:8080/todos', {
+    fetchVadim('http://localhost:8080/todos', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -11,11 +13,11 @@ export const addTask = (taskName) => (
         body: JSON.stringify({
             name: taskName,
         })
-    }).then(response => response.json())
+    })
 )
 
 export const updateTaskStatus = (taskId, status) => (
-    fetch(`http://localhost:8080/todos/${taskId}`, {
+    fetchVadim(`http://localhost:8080/todos/${taskId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -23,11 +25,11 @@ export const updateTaskStatus = (taskId, status) => (
         body: JSON.stringify({
             status,
         })
-    }).then(response => response.json())
+    })
 )
 
 export const deleteTask = (taskId) => (
-    fetch(`http://localhost:8080/todos/${taskId}`, {
+    fetchVadim(`http://localhost:8080/todos/${taskId}`, {
         method: 'DELETE',
-    }).then(response => response.json())
+    })
 )

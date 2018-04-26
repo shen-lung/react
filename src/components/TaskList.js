@@ -26,6 +26,7 @@ export default class TaskList extends Component {
         goToHome: PropTypes.func.isRequired,
         getTasksFromServer: PropTypes.func.isRequired,
         isLoading: PropTypes.bool,
+        errorMessage: PropTypes.string,
     }
 
     constructor(props) {
@@ -69,6 +70,7 @@ export default class TaskList extends Component {
             removeTask,
             goToHome,
             isLoading,
+            errorMessage,
         } = this.props;
         let {
             textValue,
@@ -92,9 +94,16 @@ export default class TaskList extends Component {
             syncingComponent = (<span>syncing...</span>);
         }
 
+        let errorComponent = null;
+        
+        if (errorMessage) {
+            errorComponent = (<span>{errorMessage}</span>);
+        }
+
         return (
             <div className="task_list_content">
                 {syncingComponent}
+                {errorComponent}
                 <div>
                     <input
                         type="text"

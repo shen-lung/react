@@ -1,8 +1,15 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 
-import {ADD_NUMBER, SUBTRACT_NUMBER, RESET_NUMBER, SET_IS_LOADING} from '../actions';
+import {
+    ADD_NUMBER,
+    SUBTRACT_NUMBER,
+    RESET_NUMBER,
+    SET_IS_LOADING,
+    SHOW_ERROR
+} from '../actions';
 import taskList from './taskList'
+
 
 
 const calculation = (state = 0, {type}) => {
@@ -33,9 +40,20 @@ const isLoading = (state=false, {type, payload}) => {
     return newState;
 }
 
+const errorMessage = (state='', {type, payload}) => {
+    let newState = state;
+
+    if (type === SHOW_ERROR) {
+        newState = payload;
+    }
+
+    return newState;
+}
+
 export default combineReducers({
     routing: routerReducer,
     calculation,
     taskList,
     isLoading,
+    errorMessage,
 });
