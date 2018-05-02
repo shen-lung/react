@@ -13,6 +13,8 @@ const _getTotalCompletedTask = (taskList) => _.chain(taskList).filter({status: '
 
 const _getTotalSelected = (taskList) => _.chain(taskList).filter({selected: true}).size().value();
 
+const _isTaskListEmpty = (taskList) => _getTotalTask(taskList) === 0;
+
 const _isEmpty = (textValue) => textValue.length === 0;
 
 export default class TaskList extends Component {
@@ -31,9 +33,10 @@ export default class TaskList extends Component {
 
     constructor(props) {
         super(props);
-
+        
         this.state = {
             textValue: '',
+            taskList: props.taskList,
         };
     }
 
@@ -62,6 +65,16 @@ export default class TaskList extends Component {
         addTask(textValue)
     }
 
+    _selectAllTickets = (taskList) => {
+        this.setState({
+            taskList: _.map(taskList, (task) => task.selected = true),
+        });
+    }
+
+    _deselectAllTickets = (taskList) => {
+        _.map(taskList, (task) => task.selected = false);
+    }
+
     render() {
         let {
             taskList,
@@ -85,6 +98,7 @@ export default class TaskList extends Component {
             )
         ]), []);
 
+        let disabledSelectAllButton = _isTaskListEmpty(taskList);
         let disabledAddButton = isLoading || _isEmpty(textValue);
         let disabledActionButtons = isLoading || !_getTotalSelected(taskList);
 
@@ -95,7 +109,7 @@ export default class TaskList extends Component {
         }
 
         let errorComponent = null;
-        
+
         if (errorMessage) {
             errorComponent = (<span>{errorMessage}</span>);
         }
@@ -116,6 +130,8 @@ export default class TaskList extends Component {
                         <label>ToDo: {_getTotalToDoTask(taskList)}</label>
                         <label>Complited: {_getTotalCompletedTask(taskList)}</label>
                     </p>
+                    <button disabled={disabledSelectAllButton} onClick={() => this._selectAllTickets(taskList)}>Select All</button>
+                    <button disabled={disabledActionButtons} onClick={() => this._deselectAllTickets(taskList)}>Deselect All</button>
                     <ul>{listItems}</ul>
                     <button disabled={disabledActionButtons} onClick={completeTask}>Complited</button>
                     <button disabled={disabledActionButtons} onClick={returnToDoTask}>ToDo</button>
