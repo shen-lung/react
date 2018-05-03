@@ -7,7 +7,6 @@ import {
     REMOVE_TASK,
     SELECT_TASK,
     ADD_MULTIPLE_TASKS,
-    SERVER_ERROR,
     SELECT_ALL_TASKS,
     DESELECT_ALL_TASKS
 } from '../actions/taskList'

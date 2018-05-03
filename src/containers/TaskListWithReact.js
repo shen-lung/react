@@ -31,31 +31,27 @@ export default class TaskListWithReact extends PureComponent {
     }
 
     _completeTask = (taskKey) => {
-        this.setState(({taskList}) => {
-            return {
-                taskList: {
-                    ...taskList,
-                    [taskKey]: {
-                        ...taskList[taskKey],
-                        status: 'completed',
-                    },
+        this.setState(({taskList}) => ({
+            taskList: {
+                ...taskList,
+                [taskKey]: {
+                    ...taskList[taskKey],
+                    status: 'completed',
                 },
-            };
-        });
+            },
+        }));
     }
 
     _returnToDoTask = (taskKey) => {
-        this.setState(({taskList}) => {
-            return {
-                taskList: {
-                    ...taskList,
-                    [taskKey]: {
-                        ...taskList[taskKey],
-                        status: 'todo',
-                    },
+        this.setState(({taskList}) => ({
+            taskList: {
+                ...taskList,
+                [taskKey]: {
+                    ...taskList[taskKey],
+                    status: 'todo',
                 },
-            };
-        });
+            },
+        }));
     }
 
     _removeTask = (taskKey) => {
@@ -73,17 +69,39 @@ export default class TaskListWithReact extends PureComponent {
     }
 
     _selectTask = (taskKey, selected) => {
-        this.setState(({taskList}) => {
-            return {
-                taskList: {
-                    ...taskList,
-                    [taskKey]: {
-                        ...taskList[taskKey],
-                        selected,
-                    },
+        this.setState(({taskList}) => ({
+            taskList: {
+                ...taskList,
+                [taskKey]: {
+                    ...taskList[taskKey],
+                    selected,
                 },
-            };
-        });
+            },
+        }));
+    }
+
+    _selectAllTasks = () => {
+        this.setState(({taskList}) => ({
+            taskList: _.reduce(taskList, (memo, task, key) => ({
+                ...memo,
+                [key]: {
+                    ...task,
+                    selected: true,
+                },
+            }), {}),
+        }));
+    }
+
+    _deselectAllTasks = () => {
+        this.setState(({taskList}) => ({
+            taskList: _.reduce(taskList, (memo, task, key) => ({
+                ...memo,
+                [key]: {
+                    ...task,
+                    selected: false,
+                },
+            }), {}),
+        }));
     }
 
     render() {
@@ -97,6 +115,8 @@ export default class TaskListWithReact extends PureComponent {
                 returnToDoTask={this._returnToDoTask}
                 removeTask={this._removeTask}
                 selectTask={this._selectTask}
+                selectAllTasks={this._selectAllTasks}
+                deselectAllTasks={this._deselectAllTasks}
                 goToHome={_goToHome}
                 getTasksFromServer={_.noop}
             />
