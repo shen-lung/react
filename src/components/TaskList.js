@@ -26,6 +26,8 @@ export default class TaskList extends Component {
         removeTask: PropTypes.func.isRequired,
         selectTask: PropTypes.func.isRequired,
         goToHome: PropTypes.func.isRequired,
+        selectAllTasks: PropTypes.func.isRequired,
+        deselectAllTasks: PropTypes.func.isRequired,
         getTasksFromServer: PropTypes.func.isRequired,
         isLoading: PropTypes.bool,
         errorMessage: PropTypes.string,
@@ -35,8 +37,7 @@ export default class TaskList extends Component {
         super(props);
 
         this.state = {
-            textValue: '',
-            taskList: props.taskList,
+            textValue: ''
         };
     }
 
@@ -65,18 +66,6 @@ export default class TaskList extends Component {
         addTask(textValue)
     }
 
-    _selectAllTickets = (taskList) => {
-        this.setState({
-            taskList: _.map(taskList, (task) => task.selected = true),
-        });
-    }
-
-    _deselectAllTickets = (taskList) => {
-        this.setState({
-            taskList: _.map(taskList, (task) => task.selected = false),
-        });
-    }
-
     render() {
         let {
             taskList,
@@ -86,6 +75,8 @@ export default class TaskList extends Component {
             goToHome,
             isLoading,
             errorMessage,
+            selectAllTasks,
+            deselectAllTasks
         } = this.props;
         let {
             textValue,
@@ -132,8 +123,8 @@ export default class TaskList extends Component {
                         <label>ToDo: {_getTotalToDoTask(taskList)}</label>
                         <label>Complited: {_getTotalCompletedTask(taskList)}</label>
                     </p>
-                    <button disabled={disabledSelectAllButton} onClick={() => this._selectAllTickets(taskList)}>Select All</button>
-                    <button disabled={disabledActionButtons} onClick={() => this._deselectAllTickets(taskList)}>Deselect All</button>
+                    <button disabled={disabledSelectAllButton} onClick={selectAllTasks}>Select All</button>
+                    <button disabled={disabledActionButtons} onClick={deselectAllTasks}>Deselect All</button>
                     <ul>{listItems}</ul>
                     <button disabled={disabledActionButtons} onClick={completeTask}>Complited</button>
                     <button disabled={disabledActionButtons} onClick={returnToDoTask}>ToDo</button>

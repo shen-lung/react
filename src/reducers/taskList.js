@@ -7,7 +7,9 @@ import {
     REMOVE_TASK,
     SELECT_TASK,
     ADD_MULTIPLE_TASKS,
-    SERVER_ERROR
+    SERVER_ERROR,
+    SELECT_ALL_TASKS,
+    DESELECT_ALL_TASKS
 } from '../actions/taskList'
 
 
@@ -86,6 +88,26 @@ const taskList = (state = {}, {type, payload}) => {
                 selected,
             },
         };
+    }
+
+    if (type === SELECT_ALL_TASKS) {
+        newState =  _.reduce(newState, (result, task, key) => ({
+    		...result,
+    		[key]: {
+                ...task,
+                selected: true,
+            }
+        }), {});
+    }
+
+    if (type === DESELECT_ALL_TASKS) {
+        newState =  _.reduce(newState, (result, task, key) => ({
+    		...result,
+    		[key]: {
+                ...task,
+                selected: false,
+            }
+        }), {});
     }
 
     return newState;

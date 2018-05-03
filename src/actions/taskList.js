@@ -17,6 +17,8 @@ export const RETURN_TO_DO_TASK = 'RETURN_TO_DO_TASK';
 export const REMOVE_TASK = 'REMOVE_TASK';
 export const SELECT_TASK = 'SELECT_TASK';
 export const ADD_MULTIPLE_TASKS = 'ADD_MULTIPLE_TASKS';
+export const SELECT_ALL_TASKS = 'SELECT_ALL_TASKS';
+export const DESELECT_ALL_TASKS = 'DESELECT_ALL_TASKS';
 
 
 export const getTasksFromServer = () => (
@@ -122,7 +124,7 @@ export const removeTask = (key) => (
 
         dispatch(setIsLoading(true));
         dispatch(showError(''));
-        
+
         // serie
         let promise = Promise.resolve();
 
@@ -143,3 +145,7 @@ export const removeTask = (key) => (
 );
 
 export const selectTask = (key, selected) => ({type: SELECT_TASK, payload: {key, selected}});
+
+export const selectAllTasks = () => ({type: SELECT_ALL_TASKS});
+
+export const deselectAllTasks = () => ({type: DESELECT_ALL_TASKS});
