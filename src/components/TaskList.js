@@ -33,7 +33,7 @@ export default class TaskList extends Component {
 
     constructor(props) {
         super(props);
-        
+
         this.state = {
             textValue: '',
             taskList: props.taskList,
@@ -72,7 +72,9 @@ export default class TaskList extends Component {
     }
 
     _deselectAllTickets = (taskList) => {
-        _.map(taskList, (task) => task.selected = false);
+        this.setState({
+            taskList: _.map(taskList, (task) => task.selected = false),
+        });
     }
 
     render() {
