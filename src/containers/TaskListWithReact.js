@@ -30,42 +30,42 @@ export default class TaskListWithReact extends PureComponent {
         });
     }
 
-    _completeTask = (taskKey) => {
-        this.setState(({taskList}) => ({
-            taskList: {
-                ...taskList,
-                [taskKey]: {
-                    ...taskList[taskKey],
-                    status: 'completed',
-                },
-            },
-        }));
+    _completeTask = () => {
+        // this.setState(({taskList}) => ({
+        //     taskList: {
+        //         ...taskList,
+        //         [taskKey]: {
+        //             ...taskList[taskKey],
+        //             status: 'completed',
+        //         },
+        //     },
+        // }));
     }
 
-    _returnToDoTask = (taskKey) => {
-        this.setState(({taskList}) => ({
-            taskList: {
-                ...taskList,
-                [taskKey]: {
-                    ...taskList[taskKey],
-                    status: 'todo',
-                },
-            },
-        }));
+    _returnToDoTask = () => {
+        // this.setState(({taskList}) => ({
+        //     taskList: {
+        //         ...taskList,
+        //         [taskKey]: {
+        //             ...taskList[taskKey],
+        //             status: 'todo',
+        //         },
+        //     },
+        // }));
     }
 
-    _removeTask = (taskKey) => {
-        this.setState(({taskList}) => {
-            let newState = taskList;
-
-            delete newState[taskKey];
-
-            return {
-                taskList: {
-                    ...newState
-                }
-            };
-        });
+    _removeTask = () => {
+        // this.setState(({taskList}) => {
+        //     let newState = taskList;
+        //
+        //     delete newState[taskKey];
+        //
+        //     return {
+        //         taskList: {
+        //             ...newState
+        //         }
+        //     };
+        // });
     }
 
     _selectTask = (taskKey, selected) => {

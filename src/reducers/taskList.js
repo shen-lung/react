@@ -91,8 +91,8 @@ const taskList = (state = {}, {type, payload}) => {
 
     if (type === SELECT_ALL_TASKS) {
         newState =  _.reduce(newState, (result, task, key) => ({
-    		...result,
-    		[key]: {
+            ...result,
+            [key]: {
                 ...task,
                 selected: true,
             }
@@ -101,8 +101,8 @@ const taskList = (state = {}, {type, payload}) => {
 
     if (type === DESELECT_ALL_TASKS) {
         newState =  _.reduce(newState, (result, task, key) => ({
-    		...result,
-    		[key]: {
+            ...result,
+            [key]: {
                 ...task,
                 selected: false,
             }
