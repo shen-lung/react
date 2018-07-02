@@ -23,10 +23,10 @@ class Calculation extends Component {
 
         return (
             <div className="Content">
-                <button onClick={addNumber}>Add</button>
+                <button data-spec="addNumber" onClick={addNumber}>Add</button>
                 <button onClick={subtractNumber}>Subtract</button>
                 <button onClick={resetNumber}>Reset</button>
-                <p>{number}</p>
+                <p data-spec="number">{number}</p>
                 <button onClick={goToHome}>Go Home</button>
             </div>
         );
