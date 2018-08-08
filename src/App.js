@@ -12,6 +12,8 @@ import configureStore from './store';
 import getRoutes from './routes';
 import getHistory from './history';
 
+import Facebook from './components/FacebookLogin'
+
 
 class App extends Component {
     constructor(props) {
@@ -32,9 +34,12 @@ class App extends Component {
         let routes = getRoutes();
 
         return (
-            <Provider store={this._store}>
-                <Router history={this._history} routes={routes} />
-            </Provider>
+            <div>
+                <Provider store={this._store}>
+                    <Router history={this._history} routes={routes} />
+                </Provider>
+                <Facebook />
+            </div>
         );
     }
 }
