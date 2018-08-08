@@ -10,8 +10,7 @@ export default class Facebook extends Component {
             userId: '',
             name: '',
             email: '',
-            picture: '',
-            autoLoad: false
+            picture: ''
         };
     }
 
@@ -20,12 +19,12 @@ export default class Facebook extends Component {
        
        this.setState({
            isLoggedIn: true,
+           autoLoad: true,
            userId: response.userID,
            name: response.name,
            email: response.email,
            picture: response.picture.data.url,
-           response: response,
-           autoLoad: true
+           response: response
        });
    }
 
@@ -58,7 +57,7 @@ export default class Facebook extends Component {
    } else {
        fbContent = (<FacebookLogin
            appId="1771719602924919"
-           autoLoad={this.state.isLoggedIn}
+           autoLoad={true}
            fields="name,email,picture"
            callback={this.responseFacebook}
            version='2.10'
