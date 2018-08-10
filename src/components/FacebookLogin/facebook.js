@@ -1,21 +1,27 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import getParamsFromObject from './objectToParams';
 
-const getIsMobile = () => {
-  let isMobile = false;
+// const getIsMobile = () => {
+//   let isMobile = false;
 
-  try {
-    isMobile = !!((window.navigator && window.navigator.standalone) || navigator.userAgent.match('CriOS') || navigator.userAgent.match(/mobile/i));
-  } catch (ex) {
-    // continue regardless of error
-  }
+//   try {
+//     isMobile = !!((window.navigator && window.navigator.standalone) || navigator.userAgent.match('CriOS') || navigator.userAgent.match(/mobile/i));
+//   } catch (ex) {
+//     // continue regardless of error
+//   }
 
-  return isMobile;
-};
+//   return isMobile;
+// };
 
-class FacebookLogin extends React.Component {
+// const getParamsFromObject = (params) => {
+//   debugger;
+//   '?' + Object.keys(params)
+//   .map(param => `${param}=${encodeURIComponent(params[param])}`)
+//   .join('&');
+// };
+
+class FacebookLogin extends Component {
 
   static propTypes = {
     isDisabled: PropTypes.bool,
@@ -31,7 +37,7 @@ class FacebookLogin extends React.Component {
     redirectUri: PropTypes.string,
     autoLoad: PropTypes.bool,
     disableMobileRedirect: PropTypes.bool,
-    isMobile: PropTypes.bool,
+    // isMobile: PropTypes.bool,
     fields: PropTypes.string,
     version: PropTypes.string,
     language: PropTypes.string,
@@ -51,7 +57,7 @@ class FacebookLogin extends React.Component {
     version: '2.3',
     language: 'en_US',
     disableMobileRedirect: false,
-    isMobile: getIsMobile(),
+    // isMobile: getIsMobile(),
     onFailure: null,
     state: 'facebookdirect',
     responseType: 'code',
@@ -179,11 +185,12 @@ class FacebookLogin extends React.Component {
       auth_type: authType,
     };
 
-    if (this.props.isMobile && !disableMobileRedirect) {
-      window.location.href = `//www.facebook.com/dialog/oauth${getParamsFromObject(params)}`;
-    } else {
-      window.FB.login(this.checkLoginState, { scope, return_scopes: returnScopes, auth_type: params.auth_type });
-    }
+    // if (this.props.isMobile && !disableMobileRedirect) {
+    //   window.location.href = `//www.facebook.com/dialog/oauth${getParamsFromObject(params)}`;
+    // } else {
+    //   window.FB.login(this.checkLoginState, { scope, return_scopes: returnScopes, auth_type: params.auth_type });
+    // }
+    window.FB.login(this.checkLoginState, { scope, return_scopes: returnScopes, auth_type: params.auth_type });
   };
 
   render() {
