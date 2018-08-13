@@ -4,3 +4,4 @@ build
 api-server/data/_todos.json
 package-lock.json
 *.log
+dist
