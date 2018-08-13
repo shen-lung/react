@@ -3,3 +3,4 @@ build
 .eslintrc
 api-server/data/_todos.json
 package-lock.json
+*.log
