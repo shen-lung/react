@@ -32,11 +32,9 @@ class App extends Component {
         let routes = getRoutes();
 
         return (
-            <div>
-                <Provider store={this._store}>
-                    <Router history={this._history} routes={routes} />
-                </Provider>
-            </div>
+            <Provider store={this._store}>
+                <Router history={this._history} routes={routes} />
+            </Provider>
         );
     }
 }
