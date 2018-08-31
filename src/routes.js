@@ -9,7 +9,7 @@ import ConnectedIndexScreen from './containers/ConnectedIndexScreen';
 
 import Page from './components/Page';
 
-const BASE_URL = '/';
+const BASE_URL = process.env.NODE_ENV === 'production' ? '/react/' : '/';
 
 const getRoutes = () => {
     return (

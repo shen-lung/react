@@ -1,8 +1,9 @@
 const path = require('path');
 
+const webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
-module.exports = {
+module.exports = (env, argv) => ({
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -33,9 +34,12 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.EnvironmentPlugin({
+            NODE_ENV: argv.mode,
+        }),
         new HtmlWebPackPlugin({
             template: './public2/index.html',
             filename: './index.html',
         }),
     ]
-};
+});

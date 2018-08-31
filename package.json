@@ -47,9 +47,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "build2": "webpack --config ./webpack.config.js",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+
+    "build:dev": "webpack --config ./webpack.config.js --mode development",
+    "build:prod": "webpack --config ./webpack.config.js --mode production",
+    "predeploy": "npm run build:prod",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "eslint-config-google": "^0.9.1"
