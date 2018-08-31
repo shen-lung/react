@@ -38,7 +38,7 @@ module.exports = (env, argv) => ({
             NODE_ENV: argv.mode,
         }),
         new HtmlWebPackPlugin({
-            template: './public2/index.html',
+            template: './public/index.html',
             filename: './index.html',
         }),
     ]

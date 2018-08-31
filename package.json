@@ -14,6 +14,7 @@
     "css-loader": "^1.0.0",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-15.4": "^1.0.5",
+    "eslint-config-google": "^0.9.1",
     "eslint-plugin-react": "^7.7.0",
     "file-loader": "^1.1.11",
     "gh-pages": "^1.2.0",
@@ -32,7 +33,6 @@
     "react-redux": "^5.0.7",
     "react-router": "^3.0.2",
     "react-router-redux": "^4.0.4",
-    "react-scripts": "1.1.1",
     "react-test-renderer": "^16.4.1",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
@@ -40,20 +40,13 @@
     "redux-thunk": "^2.2.0",
     "style-loader": "^0.22.1",
     "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.7"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-
-    "build:dev": "webpack --config ./webpack.config.js --mode development",
-    "build:prod": "webpack --config ./webpack.config.js --mode production",
-    "predeploy": "npm run build:prod",
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development --port 5000",
+    "build": "webpack --config ./webpack.config.js --mode production",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
-  },
-  "devDependencies": {
-    "eslint-config-google": "^0.9.1"
   }
 }
